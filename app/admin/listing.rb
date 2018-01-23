@@ -1,5 +1,7 @@
 ActiveAdmin.register Listing do
 
+ permit_params :address, :lat, :lng
+
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
