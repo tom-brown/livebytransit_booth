@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  ActiveAdmin.routes(self)
   root :to => "listings#index"
   # Routes for the Listing resource:
   # CREATE
