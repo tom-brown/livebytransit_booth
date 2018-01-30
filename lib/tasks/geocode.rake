@@ -1,17 +1,18 @@
 desc 'find lat/lng for listings with nil lat'       #this is required to run outsideboundingbox? method
 task :geocode => :environment do
 
-#   require 'open-uri'
+  require 'open-uri'
+  require 'json'
+  
+  Listing.where(lat: nil).find_each do |listing|
     
-  Listing.where(:latitude => nil).find_each do |listing|
-    
-    address = "#{listing.address}"
-    address = address.gsub!(/\+{1,}/,"+") #takes out multiple + and replaces with one +
+    address = listing.address
+    address = address.gsub!(/\s/,'+') #replaces spaces with +
     key = "AIzaSyAO4qqrZroxOzWDPPK0Ra2EcXmvrZZM3j0"
     puts address
     uri = URI.parse(URI.encode("https://maps.googleapis.com/maps/api/geocode/json?address=#{address}&key=#{key}"))
     if file_handle = open(uri)
-      parsed_json = ActiveSupport::JSON.decode(file_handle)
+      parsed_json = JSON.load(file_handle)
       if parsed_json["results"].present?
         results = parsed_json["results"]
         puts "class: #{results.class} count: #{results.count}"

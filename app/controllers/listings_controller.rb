@@ -2,6 +2,10 @@ class ListingsController < ApplicationController
   def index
     @q = Listing.ransack(params[:q])
     @listings = @q.result(:distinct => true).page(params[:page]).per(10)
+    @markers = []
+    Listing.find_each do |listing|
+      @markers << [listing.address,listing.lat,listing.lng]
+    end
 
     render("listings/index.html.erb")
   end

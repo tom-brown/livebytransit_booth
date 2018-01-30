@@ -101,3 +101,51 @@
     <%= paginate @listings, theme: 'twitter-bootstrap-4' %>
   </div>
 </div>
+
+
+  <body onload="InitMap();">
+	      <div id="map" style="height: 600px; width: 750px;"></div>
+	  </body>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClfd8foVa06sO7dhHKjQ8yoN0VeR-Vj58&callback=initMap"></script>
+    <script type="text/javascript">
+		
+		var locations = <%=raw @markers%>
+ 
+        function InitMap() {
+ 
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: new google.maps.LatLng(41.8781, -87.6298),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+ 
+            var infowindow = new google.maps.InfoWindow();
+ 
+            var marker, i;
+			
+			var bounds = new google.maps.LatLngBounds();
+ 
+            for (i = 0; i < locations.length; i++) {
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map
+                    
+                });
+               
+               loc = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+               
+               bounds.extend(loc);
+               
+                google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                    return function () {
+                        infowindow.setContent(locations[i][0]);
+                        infowindow.open(map, marker);
+                    }
+                })(marker, i));
+            }
+            // for loop marker
+			   map.fitBounds(bounds);     
+        map.panToBounds(bounds);     
+        }
+    </script>
+
