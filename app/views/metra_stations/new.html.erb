@@ -1,0 +1,46 @@
+<!-- Validation failure messages -->
+<% if @metra_station.errors.any? %>
+  <% @metra_station.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Add Metra Station</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_metra_station" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for lat -->
+      <div class="form-group">
+        <label for="lat" class="control-label">
+          Lat
+        </label>
+
+        <input type="text" id="lat" name="lat" placeholder="Lat" class="form-control" value="<%= @metra_station.lat %>">
+      </div>
+
+      <!-- Label and input for lng -->
+      <div class="form-group">
+        <label for="lng" class="control-label">
+          Lng
+        </label>
+
+        <input type="text" id="lng" name="lng" placeholder="Lng" class="form-control" value="<%= @metra_station.lng %>">
+      </div>
+
+      <button class="btn btn-success">
+        Create Metra Station
+      </button>
+      or
+      <a href="/metra_stations">Cancel</a>
+    </form>
+  </div>
+</div>

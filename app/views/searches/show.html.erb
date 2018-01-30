@@ -1,0 +1,506 @@
+<div class="page-header">
+  <h3>Search #<%= @search.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>User</dt>
+      <dd>
+        <% if @search.user.present? %>
+          <a href="/users/<%= @search.user_id %>">
+            <%= @search.user.email %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Property type</dt>
+      <dd><%= @search.property_type %></dd>
+
+      <dt>Beds</dt>
+      <dd><%= @search.beds %></dd>
+
+      <dt>Baths</dt>
+      <dd><%= @search.baths %></dd>
+
+      <dt>Max price</dt>
+      <dd><%= @search.max_price %></dd>
+
+      <dt>Rental</dt>
+      <dd><%= @search.rental %></dd>
+
+      <dt>Cats</dt>
+      <dd><%= @search.cats %></dd>
+
+      <dt>Dogs</dt>
+      <dd><%= @search.dogs %></dd>
+
+      <dt>Cta distance</dt>
+      <dd><%= @search.cta_distance %></dd>
+
+      <dt>Metra distance</dt>
+      <dd><%= @search.metra_distance %></dd>
+
+      <dt>Parking</dt>
+      <dd><%= @search.parking %></dd>
+
+      <dt>Laundry</dt>
+      <dd><%= @search.laundry %></dd>
+
+      <dt>Name</dt>
+      <dd><%= @search.name %></dd>
+
+      <dt>Min price</dt>
+      <dd><%= @search.min_price %></dd>
+
+      <dt>Old mlsids</dt>
+      <dd><%= @search.old_mlsids %></dd>
+
+      <dt>Current mlsids</dt>
+      <dd><%= @search.current_mlsids %></dd>
+
+      <dt>New mlsids</dt>
+      <dd><%= @search.new_mlsids %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/searches" class="btn btn-primary">
+        Back
+      </a>
+      <% if current_user == @search.user %>
+        <a href="/searches/<%= @search.id %>/edit" class="btn btn-warning">
+          Edit
+        </a>
+        <a href="/delete_search/<%= @search.id %>" class="btn btn-danger" rel="nofollow">
+          Delete
+        </a>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- A Search has many cta_searches -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Cta Searches
+      </li>
+
+      <% @search.cta_searches.each do |cta_search| %>
+        <li class="list-group-item">
+          <a href="/cta_searches/<%= cta_search.id %>">
+            <%= cta_search.search_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/cta_searches/<%= cta_search.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/cta_searches/<%= cta_search.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_cta_search/<%= cta_search.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_cta_search" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for search_id -->
+      <input type="hidden" name="search_id" value="<%= @search.id %>">
+
+      <!-- Label and input for cta_station_id -->
+      <div class="form-group">
+        <label for="cta_station_id" class="control-label">
+          Cta station
+        </label>
+
+        <%= select_tag(:cta_station_id, options_from_collection_for_select(CtaStation.all, :id, :name), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Cta Search
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Search has many metra_searches -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Metra Searches
+      </li>
+
+      <% @search.metra_searches.each do |metra_search| %>
+        <li class="list-group-item">
+          <a href="/metra_searches/<%= metra_search.id %>">
+            <%= metra_search.search_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/metra_searches/<%= metra_search.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/metra_searches/<%= metra_search.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_metra_search/<%= metra_search.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_metra_search" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for search_id -->
+      <input type="hidden" name="search_id" value="<%= @search.id %>">
+
+      <!-- Label and input for metra_station_id -->
+      <div class="form-group">
+        <label for="metra_station_id" class="control-label">
+          Metra station
+        </label>
+
+        <%= select_tag(:metra_station_id, options_from_collection_for_select(MetraStation.all, :id, :lat), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Metra Search
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Search has many hood_searches -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Hood Searches
+      </li>
+
+      <% @search.hood_searches.each do |hood_search| %>
+        <li class="list-group-item">
+          <a href="/hood_searches/<%= hood_search.id %>">
+            <%= hood_search.neighborhood_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/hood_searches/<%= hood_search.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/hood_searches/<%= hood_search.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_hood_search/<%= hood_search.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_hood_search" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for neighborhood_id -->
+      <div class="form-group">
+        <label for="neighborhood_id" class="control-label">
+          Neighborhood
+        </label>
+
+        <%= select_tag(:neighborhood_id, options_from_collection_for_select(Neighborhood.all, :id, :name), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for search_id -->
+      <input type="hidden" name="search_id" value="<%= @search.id %>">
+
+      <button class="btn btn-block btn-success">
+        Create Hood Search
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Search has many city_searches -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        City Searches
+      </li>
+
+      <% @search.city_searches.each do |city_search| %>
+        <li class="list-group-item">
+          <a href="/city_searches/<%= city_search.id %>">
+            <%= city_search.search_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/city_searches/<%= city_search.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/city_searches/<%= city_search.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_city_search/<%= city_search.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_city_search" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for search_id -->
+      <input type="hidden" name="search_id" value="<%= @search.id %>">
+
+      <!-- Label and input for city_id -->
+      <div class="form-group">
+        <label for="city_id" class="control-label">
+          City
+        </label>
+
+        <%= select_tag(:city_id, options_from_collection_for_select(City.all, :id, :name), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create City Search
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Search has many listings_searches -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Listings Searches
+      </li>
+
+      <% @search.listings_searches.each do |listings_search| %>
+        <li class="list-group-item">
+          <a href="/listings_searches/<%= listings_search.id %>">
+            <%= listings_search.listing_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/listings_searches/<%= listings_search.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/listings_searches/<%= listings_search.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_listings_search/<%= listings_search.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_listings_search" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for listing_id -->
+      <div class="form-group">
+        <label for="listing_id" class="control-label">
+          Listing
+        </label>
+
+        <%= select_tag(:listing_id, options_from_collection_for_select(Listing.all, :id, :address), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for search_id -->
+      <input type="hidden" name="search_id" value="<%= @search.id %>">
+
+      <button class="btn btn-block btn-success">
+        Create Listings Search
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Search has many listings -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Listings
+      </li>
+
+      <% @search.listings.each do |listing| %>
+        <li class="list-group-item">
+          <a href="/listings/<%= listing.id %>">
+            <%= listing.address %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/listings/<%= listing.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/listings/<%= listing.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_listing/<%= listing.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<!-- A Search has many cta_stations -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Cta Stations
+      </li>
+
+      <% @search.cta_stations.each do |cta_station| %>
+        <li class="list-group-item">
+          <a href="/cta_stations/<%= cta_station.id %>">
+            <%= cta_station.name %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/cta_stations/<%= cta_station.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/cta_stations/<%= cta_station.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_cta_station/<%= cta_station.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<!-- A Search has many metra_stations -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Metra Stations
+      </li>
+
+      <% @search.metra_stations.each do |metra_station| %>
+        <li class="list-group-item">
+          <a href="/metra_stations/<%= metra_station.id %>">
+            <%= metra_station.lat %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/metra_stations/<%= metra_station.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/metra_stations/<%= metra_station.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_metra_station/<%= metra_station.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<!-- A Search has many cities -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Cities
+      </li>
+
+      <% @search.cities.each do |city| %>
+        <li class="list-group-item">
+          <a href="/cities/<%= city.id %>">
+            <%= city.name %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/cities/<%= city.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/cities/<%= city.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_city/<%= city.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<!-- A Search has many neighborhoods -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Neighborhoods
+      </li>
+
+      <% @search.neighborhoods.each do |neighborhood| %>
+        <li class="list-group-item">
+          <a href="/neighborhoods/<%= neighborhood.id %>">
+            <%= neighborhood.name %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/neighborhoods/<%= neighborhood.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/neighborhoods/<%= neighborhood.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_neighborhood/<%= neighborhood.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h3>Metra Assign #<%= @metra_assign.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Metra line</dt>
+      <dd>
+        <% if @metra_assign.metra_line.present? %>
+          <a href="/metra_lines/<%= @metra_assign.metra_line_id %>">
+            <%= @metra_assign.metra_line.created_at %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Metra station</dt>
+      <dd>
+        <% if @metra_assign.metra_station.present? %>
+          <a href="/metra_stations/<%= @metra_assign.metra_station_id %>">
+            <%= @metra_assign.metra_station.lat %>
+          </a>
+        <% end %>
+      </dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/metra_assigns" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/metra_assigns/<%= @metra_assign.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_metra_assign/<%= @metra_assign.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>

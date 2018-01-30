@@ -1,0 +1,55 @@
+<!-- Validation failure messages -->
+<% if @hood_point.errors.any? %>
+  <% @hood_point.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Add Hood Point</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_hood_point" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for neighborhood_id -->
+      <div class="form-group">
+        <label for="neighborhood_id" class="control-label">
+          Neighborhood
+        </label>
+
+        <%= select_tag(:neighborhood_id, options_from_collection_for_select(Neighborhood.all, :id, :name, @hood_point.neighborhood_id), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for lat -->
+      <div class="form-group">
+        <label for="lat" class="control-label">
+          Lat
+        </label>
+
+        <input type="text" id="lat" name="lat" placeholder="Lat" class="form-control" value="<%= @hood_point.lat %>">
+      </div>
+
+      <!-- Label and input for lng -->
+      <div class="form-group">
+        <label for="lng" class="control-label">
+          Lng
+        </label>
+
+        <input type="text" id="lng" name="lng" placeholder="Lng" class="form-control" value="<%= @hood_point.lng %>">
+      </div>
+
+      <button class="btn btn-success">
+        Create Hood Point
+      </button>
+      or
+      <a href="/hood_points">Cancel</a>
+    </form>
+  </div>
+</div>

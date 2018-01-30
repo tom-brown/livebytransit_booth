@@ -1,0 +1,43 @@
+<div class="page-header">
+  <h1>
+    Metra assigns
+    <a href="/metra_assigns/new" class="btn btn-lg btn-success">New Metra assign</a>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Metra line</th>
+        <th>Metra station</th>
+        <th>Actions</th>
+      </tr>
+
+      <% @metra_assigns.each do |metra_assign| %>
+      <tr>
+        <td>
+          <% if metra_assign.metra_line.present? %>
+            <a href="/metra_lines/<%= metra_assign.metra_line.id %>">
+              <%= metra_assign.metra_line.created_at %>
+            </a>
+          <% end %>
+        </td>
+        <td>
+          <% if metra_assign.metra_station.present? %>
+            <a href="/metra_stations/<%= metra_assign.metra_station.id %>">
+              <%= metra_assign.metra_station.lat %>
+            </a>
+          <% end %>
+        </td>
+        <td>
+          <a href="/metra_assigns/<%= metra_assign.id %>" class="btn btn-primary">Show</a>
+          <a href="/metra_assigns/<%= metra_assign.id %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/delete_metra_assign/<%= metra_assign.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+    <%= paginate @metra_assigns, theme: 'twitter-bootstrap-4' %>
+  </div>
+</div>

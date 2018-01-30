@@ -1,0 +1,42 @@
+<div class="page-header">
+  <h3>Favorite #<%= @favorite.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>User</dt>
+      <dd>
+        <% if @favorite.user.present? %>
+          <a href="/users/<%= @favorite.user_id %>">
+            <%= @favorite.user.email %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Listing</dt>
+      <dd>
+        <% if @favorite.listing.present? %>
+          <a href="/listings/<%= @favorite.listing_id %>">
+            <%= @favorite.listing.address %>
+          </a>
+        <% end %>
+      </dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/favorites" class="btn btn-primary">
+        Back
+      </a>
+      <% if current_user == @favorite.user %>
+        <a href="/favorites/<%= @favorite.id %>/edit" class="btn btn-warning">
+          Edit
+        </a>
+        <a href="/delete_favorite/<%= @favorite.id %>" class="btn btn-danger" rel="nofollow">
+          Delete
+        </a>
+      <% end %>
+    </div>
+  </div>
+</div>

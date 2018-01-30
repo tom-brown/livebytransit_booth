@@ -1,5 +1,4 @@
 <div class="page-header">
-  <h1> <%= ENV["SECRET_KEY_BASE"] %></h1>
   <h1>
     Listings
     <a href="/listings/new" class="btn btn-lg btn-success">New Listing</a>
@@ -13,6 +12,444 @@
     <%= f.label :address_cont, "Address contains" %>
     <%= f.text_field :address_cont, :class => "form-control", :placeholder => "Address contains" %>
   </div>
+
+<div class="form-group">
+  <%= f.label :total_baths, "Total baths" %>
+  <div class="row">
+    <div class='col-md-6 mb-1'>
+      <%= f.text_field :total_baths_gteq, :class => "form-control", :placeholder => "Total baths greater than or equal to" %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_field :total_baths_lteq, :class => "form-control", :placeholder => "Total baths less than or equal to" %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+    <%= f.label :la_last_name_cont, "La last name contains" %>
+    <%= f.text_field :la_last_name_cont, :class => "form-control", :placeholder => "La last name contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :la_first_name_cont, "La first name contains" %>
+    <%= f.text_field :la_first_name_cont, :class => "form-control", :placeholder => "La first name contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :lo_mlsid_cont, "Lo mlsid contains" %>
+    <%= f.text_field :lo_mlsid_cont, :class => "form-control", :placeholder => "Lo mlsid contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :mls_id_cont, "Mls contains" %>
+    <%= f.text_field :mls_id_cont, :class => "form-control", :placeholder => "Mls contains" %>
+  </div>
+
+<div class="form-group">
+  <%= f.label :picture_count, "Picture count" %>
+  <div class="row">
+    <div class='col-md-6 mb-1'>
+      <%= f.text_field :picture_count_gteq, :class => "form-control", :placeholder => "Picture count greater than or equal to" %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_field :picture_count_lteq, :class => "form-control", :placeholder => "Picture count less than or equal to" %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+    <%= f.label :image_urls_cont, "Image urls contains" %>
+    <%= f.text_field :image_urls_cont, :class => "form-control", :placeholder => "Image urls contains" %>
+  </div>
+
+<div class="form-group">
+          <%= f.label :available_date, "Available date" %>
+          <div class="row">
+            <div class='col-md-6 mb-1'>
+              <div class='input-group date' id='available_dategteqPicker'>
+                  <%= f.text_field :available_date_gteq, :class => "form-control", :placeholder => "Available date greater than or equal to" %>
+                  <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+              </div>
+            </div>
+
+            <div class='col-md-6'>
+              <div class='input-group date' id='available_datelteqPicker'>
+                  <%= f.text_field :available_date_lteq, :class => "form-control", :placeholder => "Available date less than or equal to" %>
+                  <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+              </div>
+            </div>
+          </div>
+      </div>
+      <script type="text/javascript">
+          $(function () {
+              $('#available_dategteqPicker').datetimepicker({
+                  format: 'MM/DD/YYYY'
+              });
+              $('#available_datelteqPicker').datetimepicker({
+                  useCurrent: false,
+                  format: 'MM/DD/YYYY'
+              });
+              $('#available_dategteqPicker').on("dp.change", function (e) {
+                  $('#available_datelteqPicker').data("DateTimePicker").minDate(e.date);
+              });
+              $('#available_datelteqPicker').on("dp.change", function (e) {
+                  $('#available_dategteqPicker').data("DateTimePicker").maxDate(e.date);
+              });
+          });
+      </script>
+
+<div class="form-group">
+    <%= f.label :dogs_eq, "Dogs" %>
+    <div>
+      <label class="radio-inline">
+        <%= f.radio_button :dogs_eq, "1", checked: ((params[:q] && params[:q][:dogs_eq]) == "1" ? "checked" : "") %> Yes
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :dogs_eq, "0", checked: ((params[:q] && params[:q][:dogs_eq]) == "0" ? "checked" : "")%> No
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :dogs_eq, ""%> Either
+      </label>
+    </div>
+  </div>
+
+<div class="form-group">
+    <%= f.label :cats_eq, "Cats" %>
+    <div>
+      <label class="radio-inline">
+        <%= f.radio_button :cats_eq, "1", checked: ((params[:q] && params[:q][:cats_eq]) == "1" ? "checked" : "") %> Yes
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :cats_eq, "0", checked: ((params[:q] && params[:q][:cats_eq]) == "0" ? "checked" : "")%> No
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :cats_eq, ""%> Either
+      </label>
+    </div>
+  </div>
+
+<div class="form-group">
+    <%= f.label :laundry_cont, "Laundry contains" %>
+    <%= f.text_field :laundry_cont, :class => "form-control", :placeholder => "Laundry contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :property_type_cont, "Property type contains" %>
+    <%= f.text_field :property_type_cont, :class => "form-control", :placeholder => "Property type contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :zip_code_cont, "Zip code contains" %>
+    <%= f.text_field :zip_code_cont, :class => "form-control", :placeholder => "Zip code contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :unit_cont, "Unit contains" %>
+    <%= f.text_field :unit_cont, :class => "form-control", :placeholder => "Unit contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :cp_cont, "Cp contains" %>
+    <%= f.text_field :cp_cont, :class => "form-control", :placeholder => "Cp contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :st_suffix_cont, "St suffix contains" %>
+    <%= f.text_field :st_suffix_cont, :class => "form-control", :placeholder => "St suffix contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :street_cont, "Street contains" %>
+    <%= f.text_field :street_cont, :class => "form-control", :placeholder => "Street contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :st_num_cont, "St num contains" %>
+    <%= f.text_field :st_num_cont, :class => "form-control", :placeholder => "St num contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :state_cont, "State contains" %>
+    <%= f.text_field :state_cont, :class => "form-control", :placeholder => "State contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :rental_eq, "Rental" %>
+    <div>
+      <label class="radio-inline">
+        <%= f.radio_button :rental_eq, "1", checked: ((params[:q] && params[:q][:rental_eq]) == "1" ? "checked" : "") %> Yes
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :rental_eq, "0", checked: ((params[:q] && params[:q][:rental_eq]) == "0" ? "checked" : "")%> No
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :rental_eq, ""%> Either
+      </label>
+    </div>
+  </div>
+
+<div class="form-group">
+  <%= f.label :price, "Price" %>
+  <div class="row">
+    <div class='col-md-6 mb-1'>
+      <%= f.text_field :price_gteq, :class => "form-control", :placeholder => "Price greater than or equal to" %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_field :price_lteq, :class => "form-control", :placeholder => "Price less than or equal to" %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+    <%= f.label :new_construction_eq, "New construction" %>
+    <div>
+      <label class="radio-inline">
+        <%= f.radio_button :new_construction_eq, "1", checked: ((params[:q] && params[:q][:new_construction_eq]) == "1" ? "checked" : "") %> Yes
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :new_construction_eq, "0", checked: ((params[:q] && params[:q][:new_construction_eq]) == "0" ? "checked" : "")%> No
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :new_construction_eq, ""%> Either
+      </label>
+    </div>
+  </div>
+
+<div class="form-group">
+    <%= f.label :vintage_eq, "Vintage" %>
+    <div>
+      <label class="radio-inline">
+        <%= f.radio_button :vintage_eq, "1", checked: ((params[:q] && params[:q][:vintage_eq]) == "1" ? "checked" : "") %> Yes
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :vintage_eq, "0", checked: ((params[:q] && params[:q][:vintage_eq]) == "0" ? "checked" : "")%> No
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :vintage_eq, ""%> Either
+      </label>
+    </div>
+  </div>
+
+<div class="form-group">
+    <%= f.label :recent_rehab_eq, "Recent rehab" %>
+    <div>
+      <label class="radio-inline">
+        <%= f.radio_button :recent_rehab_eq, "1", checked: ((params[:q] && params[:q][:recent_rehab_eq]) == "1" ? "checked" : "") %> Yes
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :recent_rehab_eq, "0", checked: ((params[:q] && params[:q][:recent_rehab_eq]) == "0" ? "checked" : "")%> No
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :recent_rehab_eq, ""%> Either
+      </label>
+    </div>
+  </div>
+
+<div class="form-group">
+    <%= f.label :pin_cont, "Pin contains" %>
+    <%= f.text_field :pin_cont, :class => "form-control", :placeholder => "Pin contains" %>
+  </div>
+
+<div class="form-group">
+          <%= f.label :list_date, "List date" %>
+          <div class="row">
+            <div class='col-md-6 mb-1'>
+              <div class='input-group date' id='list_dategteqPicker'>
+                  <%= f.text_field :list_date_gteq, :class => "form-control", :placeholder => "List date greater than or equal to" %>
+                  <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+              </div>
+            </div>
+
+            <div class='col-md-6'>
+              <div class='input-group date' id='list_datelteqPicker'>
+                  <%= f.text_field :list_date_lteq, :class => "form-control", :placeholder => "List date less than or equal to" %>
+                  <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+              </div>
+            </div>
+          </div>
+      </div>
+      <script type="text/javascript">
+          $(function () {
+              $('#list_dategteqPicker').datetimepicker({
+                  format: 'MM/DD/YYYY'
+              });
+              $('#list_datelteqPicker').datetimepicker({
+                  useCurrent: false,
+                  format: 'MM/DD/YYYY'
+              });
+              $('#list_dategteqPicker').on("dp.change", function (e) {
+                  $('#list_datelteqPicker').data("DateTimePicker").minDate(e.date);
+              });
+              $('#list_datelteqPicker').on("dp.change", function (e) {
+                  $('#list_dategteqPicker').data("DateTimePicker").maxDate(e.date);
+              });
+          });
+      </script>
+
+<div class="form-group">
+    <%= f.label :ac_central_eq, "Ac central" %>
+    <div>
+      <label class="radio-inline">
+        <%= f.radio_button :ac_central_eq, "1", checked: ((params[:q] && params[:q][:ac_central_eq]) == "1" ? "checked" : "") %> Yes
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :ac_central_eq, "0", checked: ((params[:q] && params[:q][:ac_central_eq]) == "0" ? "checked" : "")%> No
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :ac_central_eq, ""%> Either
+      </label>
+    </div>
+  </div>
+
+<div class="form-group">
+    <%= f.label :ac_window_units_eq, "Ac window units" %>
+    <div>
+      <label class="radio-inline">
+        <%= f.radio_button :ac_window_units_eq, "1", checked: ((params[:q] && params[:q][:ac_window_units_eq]) == "1" ? "checked" : "") %> Yes
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :ac_window_units_eq, "0", checked: ((params[:q] && params[:q][:ac_window_units_eq]) == "0" ? "checked" : "")%> No
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :ac_window_units_eq, ""%> Either
+      </label>
+    </div>
+  </div>
+
+<div class="form-group">
+    <%= f.label :heat_radiator_eq, "Heat radiator" %>
+    <div>
+      <label class="radio-inline">
+        <%= f.radio_button :heat_radiator_eq, "1", checked: ((params[:q] && params[:q][:heat_radiator_eq]) == "1" ? "checked" : "") %> Yes
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :heat_radiator_eq, "0", checked: ((params[:q] && params[:q][:heat_radiator_eq]) == "0" ? "checked" : "")%> No
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :heat_radiator_eq, ""%> Either
+      </label>
+    </div>
+  </div>
+
+<div class="form-group">
+    <%= f.label :heat_gas_eq, "Heat gas" %>
+    <div>
+      <label class="radio-inline">
+        <%= f.radio_button :heat_gas_eq, "1", checked: ((params[:q] && params[:q][:heat_gas_eq]) == "1" ? "checked" : "") %> Yes
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :heat_gas_eq, "0", checked: ((params[:q] && params[:q][:heat_gas_eq]) == "0" ? "checked" : "")%> No
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :heat_gas_eq, ""%> Either
+      </label>
+    </div>
+  </div>
+
+<div class="form-group">
+    <%= f.label :size_cont, "Size contains" %>
+    <%= f.text_field :size_cont, :class => "form-control", :placeholder => "Size contains" %>
+  </div>
+
+<div class="form-group">
+  <%= f.label :age, "Age" %>
+  <div class="row">
+    <div class='col-md-6 mb-1'>
+      <%= f.text_field :age_gteq, :class => "form-control", :placeholder => "Age greater than or equal to" %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_field :age_lteq, :class => "form-control", :placeholder => "Age less than or equal to" %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+    <%= f.label :active_eq, "Active" %>
+    <div>
+      <label class="radio-inline">
+        <%= f.radio_button :active_eq, "1", checked: ((params[:q] && params[:q][:active_eq]) == "1" ? "checked" : "") %> Yes
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :active_eq, "0", checked: ((params[:q] && params[:q][:active_eq]) == "0" ? "checked" : "")%> No
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :active_eq, ""%> Either
+      </label>
+    </div>
+  </div>
+
+<div class="form-group">
+  <%= f.label :assigned_parking, "Assigned parking" %>
+  <div class="row">
+    <div class='col-md-6 mb-1'>
+      <%= f.text_field :assigned_parking_gteq, :class => "form-control", :placeholder => "Assigned parking greater than or equal to" %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_field :assigned_parking_lteq, :class => "form-control", :placeholder => "Assigned parking less than or equal to" %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :garage_spaces, "Garage spaces" %>
+  <div class="row">
+    <div class='col-md-6 mb-1'>
+      <%= f.text_field :garage_spaces_gteq, :class => "form-control", :placeholder => "Garage spaces greater than or equal to" %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_field :garage_spaces_lteq, :class => "form-control", :placeholder => "Garage spaces less than or equal to" %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+    <%= f.label :description_cont, "Description contains" %>
+    <%= f.text_field :description_cont, :class => "form-control", :placeholder => "Description contains" %>
+  </div>
+
+<div class="form-group">
+  <%= f.label :half_baths, "Half baths" %>
+  <div class="row">
+    <div class='col-md-6 mb-1'>
+      <%= f.text_field :half_baths_gteq, :class => "form-control", :placeholder => "Half baths greater than or equal to" %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_field :half_baths_lteq, :class => "form-control", :placeholder => "Half baths less than or equal to" %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :baths, "Baths" %>
+  <div class="row">
+    <div class='col-md-6 mb-1'>
+      <%= f.text_field :baths_gteq, :class => "form-control", :placeholder => "Baths greater than or equal to" %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_field :baths_lteq, :class => "form-control", :placeholder => "Baths less than or equal to" %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :beds, "Beds" %>
+  <div class="row">
+    <div class='col-md-6 mb-1'>
+      <%= f.text_field :beds_gteq, :class => "form-control", :placeholder => "Beds greater than or equal to" %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_field :beds_lteq, :class => "form-control", :placeholder => "Beds less than or equal to" %>
+    </div>
+  </div>
+</div>
 
 <div class="form-group">
     <%= f.label :lng_cont, "Lng contains" %>
@@ -64,7 +501,15 @@
           });
       </script>
 
-        
+        <div class="form-group">
+      <%= f.label :city_name_cont, "City name contains" %>
+      <%= f.text_field :city_name_cont, :class => "form-control", :placeholder => "City name contains" %>
+    </div>
+
+<div class="form-group">
+      <%= f.label :neighborhood_name_cont, "Neighborhood name contains" %>
+      <%= f.text_field :neighborhood_name_cont, :class => "form-control", :placeholder => "Neighborhood name contains" %>
+    </div>
 
       <%= f.submit :class => "btn btn-primary btn-block mb-1" %>
 
@@ -83,6 +528,48 @@
         <th>Address</th>
         <th>Lat</th>
         <th>Lng</th>
+        <th>User</th>
+        <th>Beds</th>
+        <th>Baths</th>
+        <th>Half baths</th>
+        <th>Description</th>
+        <th>Garage spaces</th>
+        <th>Assigned parking</th>
+        <th>Active</th>
+        <th>Age</th>
+        <th>Size</th>
+        <th>City</th>
+        <th>Heat gas</th>
+        <th>Heat radiator</th>
+        <th>Ac window units</th>
+        <th>Ac central</th>
+        <th>List date</th>
+        <th>Pin</th>
+        <th>Recent rehab</th>
+        <th>Vintage</th>
+        <th>New construction</th>
+        <th>Price</th>
+        <th>Rental</th>
+        <th>State</th>
+        <th>St num</th>
+        <th>Street</th>
+        <th>St suffix</th>
+        <th>Cp</th>
+        <th>Unit</th>
+        <th>Zip code</th>
+        <th>Property type</th>
+        <th>Laundry</th>
+        <th>Cats</th>
+        <th>Dogs</th>
+        <th>Available date</th>
+        <th>Image urls</th>
+        <th>Neighborhood</th>
+        <th>Picture count</th>
+        <th>Mls</th>
+        <th>Lo mlsid</th>
+        <th>La first name</th>
+        <th>La last name</th>
+        <th>Total baths</th>
         <th>Actions</th>
       </tr>
 
@@ -92,9 +579,72 @@
         <td><%= listing.lat %></td>
         <td><%= listing.lng %></td>
         <td>
+          <% if listing.user.present? %>
+            <a href="/users/<%= listing.user.id %>">
+              <%= listing.user.email %>
+            </a>
+          <% end %>
+        </td>
+        <td><%= listing.beds %></td>
+        <td><%= listing.baths %></td>
+        <td><%= listing.half_baths %></td>
+        <td><%= listing.description %></td>
+        <td><%= listing.garage_spaces %></td>
+        <td><%= listing.assigned_parking %></td>
+        <td><%= listing.active %></td>
+        <td><%= listing.age %></td>
+        <td><%= listing.size %></td>
+        <td>
+          <% if listing.city.present? %>
+            <a href="/cities/<%= listing.city.id %>">
+              <%= listing.city.name %>
+            </a>
+          <% end %>
+        </td>
+        <td><%= listing.heat_gas %></td>
+        <td><%= listing.heat_radiator %></td>
+        <td><%= listing.ac_window_units %></td>
+        <td><%= listing.ac_central %></td>
+        <td><%= listing.list_date %></td>
+        <td><%= listing.pin %></td>
+        <td><%= listing.recent_rehab %></td>
+        <td><%= listing.vintage %></td>
+        <td><%= listing.new_construction %></td>
+        <td><%= listing.price %></td>
+        <td><%= listing.rental %></td>
+        <td><%= listing.state %></td>
+        <td><%= listing.st_num %></td>
+        <td><%= listing.street %></td>
+        <td><%= listing.st_suffix %></td>
+        <td><%= listing.cp %></td>
+        <td><%= listing.unit %></td>
+        <td><%= listing.zip_code %></td>
+        <td><%= listing.property_type %></td>
+        <td><%= listing.laundry %></td>
+        <td><%= listing.cats %></td>
+        <td><%= listing.dogs %></td>
+        <td><%= listing.available_date %></td>
+        <td><%= listing.image_urls %></td>
+        <td>
+          <% if listing.neighborhood.present? %>
+            <a href="/neighborhoods/<%= listing.neighborhood.id %>">
+              <%= listing.neighborhood.name %>
+            </a>
+          <% end %>
+        </td>
+        <td><%= listing.picture_count %></td>
+        <td><%= listing.mls_id %></td>
+        <td><%= listing.lo_mlsid %></td>
+        <td><%= listing.la_first_name %></td>
+        <td><%= listing.la_last_name %></td>
+        <td><%= listing.total_baths %></td>
+        <td>
           <a href="/listings/<%= listing.id %>" class="btn btn-primary">Show</a>
-          <a href="/listings/<%= listing.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_listing/<%= listing.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          
+          <% if current_user == listing.user %>
+            <a href="/listings/<%= listing.id %>/edit" class="btn btn-warning">Edit</a>
+            <a href="/delete_listing/<%= listing.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          <% end %>
         </td>
       </tr>
       <% end %>
@@ -102,51 +652,3 @@
     <%= paginate @listings, theme: 'twitter-bootstrap-4' %>
   </div>
 </div>
-
-
-  <body onload="InitMap();">
-	      <div id="map" style="height: 600px; width: 750px;"></div>
-	  </body>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClfd8foVa06sO7dhHKjQ8yoN0VeR-Vj58&callback=initMap"></script>
-    <script type="text/javascript">
-		
-		var locations = <%=raw @markers%>
- 
-        function InitMap() {
- 
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12,
-                center: new google.maps.LatLng(41.8781, -87.6298),
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            });
- 
-            var infowindow = new google.maps.InfoWindow();
- 
-            var marker, i;
-			
-			var bounds = new google.maps.LatLngBounds();
- 
-            for (i = 0; i < locations.length; i++) {
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                    map: map
-                    
-                });
-               
-               loc = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
-               
-               bounds.extend(loc);
-               
-                google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                    return function () {
-                        infowindow.setContent(locations[i][0]);
-                        infowindow.open(map, marker);
-                    }
-                })(marker, i));
-            }
-            // for loop marker
-			   map.fitBounds(bounds);     
-        map.panToBounds(bounds);     
-        }
-    </script>
-

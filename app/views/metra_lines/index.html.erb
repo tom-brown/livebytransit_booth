@@ -1,0 +1,27 @@
+<div class="page-header">
+  <h1>
+    Metra lines
+    <a href="/metra_lines/new" class="btn btn-lg btn-success">New Metra line</a>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Actions</th>
+      </tr>
+
+      <% @metra_lines.each do |metra_line| %>
+      <tr>
+        <td>
+          <a href="/metra_lines/<%= metra_line.id %>" class="btn btn-primary">Show</a>
+          <a href="/metra_lines/<%= metra_line.id %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/delete_metra_line/<%= metra_line.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+    <%= paginate @metra_lines, theme: 'twitter-bootstrap-4' %>
+  </div>
+</div>

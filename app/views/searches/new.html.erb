@@ -1,0 +1,172 @@
+<!-- Validation failure messages -->
+<% if @search.errors.any? %>
+  <% @search.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Add Search</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_search" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+      <!-- Label and input for property_type -->
+      <div class="form-group">
+        <label for="property_type" class="control-label">
+          Property type
+        </label>
+
+        <input type="text" id="property_type" name="property_type" placeholder="Property type" class="form-control" value="<%= @search.property_type %>">
+      </div>
+
+      <!-- Label and input for beds -->
+      <div class="form-group">
+        <label for="beds" class="control-label">
+          Beds
+        </label>
+
+        <input type="text" id="beds" name="beds" placeholder="Beds" class="form-control" value="<%= @search.beds %>">
+      </div>
+
+      <!-- Label and input for baths -->
+      <div class="form-group">
+        <label for="baths" class="control-label">
+          Baths
+        </label>
+
+        <input type="text" id="baths" name="baths" placeholder="Baths" class="form-control" value="<%= @search.baths %>">
+      </div>
+
+      <!-- Label and input for max_price -->
+      <div class="form-group">
+        <label for="max_price" class="control-label">
+          Max price
+        </label>
+
+        <input type="text" id="max_price" name="max_price" placeholder="Max price" class="form-control" value="<%= @search.max_price %>">
+      </div>
+
+      <!-- Label and input for rental -->
+      <div class="checkbox">
+        <label for="rental">
+          <input type="checkbox" id="rental" name="rental" value="1" <%= "checked" if @search.rental %>>
+          Rental
+        </label>
+      </div>
+
+      <!-- Label and input for cats -->
+      <div class="checkbox">
+        <label for="cats">
+          <input type="checkbox" id="cats" name="cats" value="1" <%= "checked" if @search.cats %>>
+          Cats
+        </label>
+      </div>
+
+      <!-- Label and input for dogs -->
+      <div class="checkbox">
+        <label for="dogs">
+          <input type="checkbox" id="dogs" name="dogs" value="1" <%= "checked" if @search.dogs %>>
+          Dogs
+        </label>
+      </div>
+
+      <!-- Label and input for cta_distance -->
+      <div class="form-group">
+        <label for="cta_distance" class="control-label">
+          Cta distance
+        </label>
+
+        <input type="text" id="cta_distance" name="cta_distance" placeholder="Cta distance" class="form-control" value="<%= @search.cta_distance %>">
+      </div>
+
+      <!-- Label and input for metra_distance -->
+      <div class="form-group">
+        <label for="metra_distance" class="control-label">
+          Metra distance
+        </label>
+
+        <input type="text" id="metra_distance" name="metra_distance" placeholder="Metra distance" class="form-control" value="<%= @search.metra_distance %>">
+      </div>
+
+      <!-- Label and input for parking -->
+      <div class="form-group">
+        <label for="parking" class="control-label">
+          Parking
+        </label>
+
+        <input type="text" id="parking" name="parking" placeholder="Parking" class="form-control" value="<%= @search.parking %>">
+      </div>
+
+      <!-- Label and input for laundry -->
+      <div class="form-group">
+        <label for="laundry" class="control-label">
+          Laundry
+        </label>
+
+        <input type="text" id="laundry" name="laundry" placeholder="Laundry" class="form-control" value="<%= @search.laundry %>">
+      </div>
+
+      <!-- Label and input for name -->
+      <div class="form-group">
+        <label for="name" class="control-label">
+          Name
+        </label>
+
+        <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= @search.name %>">
+      </div>
+
+      <!-- Label and input for min_price -->
+      <div class="form-group">
+        <label for="min_price" class="control-label">
+          Min price
+        </label>
+
+        <input type="text" id="min_price" name="min_price" placeholder="Min price" class="form-control" value="<%= @search.min_price %>">
+      </div>
+
+      <!-- Label and input for old_mlsids -->
+      <div class="form-group">
+        <label for="old_mlsids" class="control-label">
+          Old mlsids
+        </label>
+
+        <textarea id="old_mlsids" name="old_mlsids" placeholder="Old mlsids" class="form-control" rows="3"><%= @search.old_mlsids %></textarea>
+      </div>
+
+      <!-- Label and input for current_mlsids -->
+      <div class="form-group">
+        <label for="current_mlsids" class="control-label">
+          Current mlsids
+        </label>
+
+        <textarea id="current_mlsids" name="current_mlsids" placeholder="Current mlsids" class="form-control" rows="3"><%= @search.current_mlsids %></textarea>
+      </div>
+
+      <!-- Label and input for new_mlsids -->
+      <div class="form-group">
+        <label for="new_mlsids" class="control-label">
+          New mlsids
+        </label>
+
+        <textarea id="new_mlsids" name="new_mlsids" placeholder="New mlsids" class="form-control" rows="3"><%= @search.new_mlsids %></textarea>
+      </div>
+
+      <button class="btn btn-success">
+        Create Search
+      </button>
+      or
+      <a href="/searches">Cancel</a>
+    </form>
+  </div>
+</div>

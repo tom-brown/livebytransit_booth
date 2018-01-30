@@ -1,0 +1,606 @@
+<div class="page-header">
+  <h3>Neighborhood #<%= @neighborhood.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Name</dt>
+      <dd><%= @neighborhood.name %></dd>
+
+      <dt>City</dt>
+      <dd>
+        <% if @neighborhood.city.present? %>
+          <a href="/cities/<%= @neighborhood.city_id %>">
+            <%= @neighborhood.city.name %>
+          </a>
+        <% end %>
+      </dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/neighborhoods" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/neighborhoods/<%= @neighborhood.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_neighborhood/<%= @neighborhood.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- A Neighborhood has many hood_searches -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Hood Searches
+      </li>
+
+      <% @neighborhood.hood_searches.each do |hood_search| %>
+        <li class="list-group-item">
+          <a href="/hood_searches/<%= hood_search.id %>">
+            <%= hood_search.neighborhood_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/hood_searches/<%= hood_search.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/hood_searches/<%= hood_search.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_hood_search/<%= hood_search.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_hood_search" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for neighborhood_id -->
+      <input type="hidden" name="neighborhood_id" value="<%= @neighborhood.id %>">
+
+      <!-- Label and input for search_id -->
+      <div class="form-group">
+        <label for="search_id" class="control-label">
+          Search
+        </label>
+
+        <%= select_tag(:search_id, options_from_collection_for_select(Search.all, :id, :user_id), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Hood Search
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Neighborhood has many listings -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Listings
+      </li>
+
+      <% @neighborhood.listings.each do |listing| %>
+        <li class="list-group-item">
+          <a href="/listings/<%= listing.id %>">
+            <%= listing.address %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/listings/<%= listing.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/listings/<%= listing.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_listing/<%= listing.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_listing" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for address -->
+      <div class="form-group">
+        <label for="address" class="control-label">
+          Address
+        </label>
+
+        <input type="text" id="address" name="address" placeholder="Address" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for lat -->
+      <div class="form-group">
+        <label for="lat" class="control-label">
+          Lat
+        </label>
+
+        <input type="text" id="lat" name="lat" placeholder="Lat" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for lng -->
+      <div class="form-group">
+        <label for="lng" class="control-label">
+          Lng
+        </label>
+
+        <input type="text" id="lng" name="lng" placeholder="Lng" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for user_id -->
+      <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+      <!-- Label and input for beds -->
+      <div class="form-group">
+        <label for="beds" class="control-label">
+          Beds
+        </label>
+
+        <input type="text" id="beds" name="beds" placeholder="Beds" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for baths -->
+      <div class="form-group">
+        <label for="baths" class="control-label">
+          Baths
+        </label>
+
+        <input type="text" id="baths" name="baths" placeholder="Baths" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for half_baths -->
+      <div class="form-group">
+        <label for="half_baths" class="control-label">
+          Half baths
+        </label>
+
+        <input type="text" id="half_baths" name="half_baths" placeholder="Half baths" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for description -->
+      <div class="form-group">
+        <label for="description" class="control-label">
+          Description
+        </label>
+
+        <textarea id="description" name="description" placeholder="Description" class="form-control" rows="3"></textarea>
+      </div>
+
+      <!-- Label and input for garage_spaces -->
+      <div class="form-group">
+        <label for="garage_spaces" class="control-label">
+          Garage spaces
+        </label>
+
+        <input type="text" id="garage_spaces" name="garage_spaces" placeholder="Garage spaces" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for assigned_parking -->
+      <div class="form-group">
+        <label for="assigned_parking" class="control-label">
+          Assigned parking
+        </label>
+
+        <input type="text" id="assigned_parking" name="assigned_parking" placeholder="Assigned parking" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for active -->
+      <div class="checkbox">
+        <label for="active">
+          <input type="checkbox" id="active" name="active" value="1" <%= "checked" if @listing.active %>>
+          Active
+        </label>
+      </div>
+
+      <!-- Label and input for age -->
+      <div class="form-group">
+        <label for="age" class="control-label">
+          Age
+        </label>
+
+        <input type="text" id="age" name="age" placeholder="Age" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for size -->
+      <div class="form-group">
+        <label for="size" class="control-label">
+          Size
+        </label>
+
+        <input type="text" id="size" name="size" placeholder="Size" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for city_id -->
+      <div class="form-group">
+        <label for="city_id" class="control-label">
+          City
+        </label>
+
+        <%= select_tag(:city_id, options_from_collection_for_select(City.all, :id, :name), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for heat_gas -->
+      <div class="checkbox">
+        <label for="heat_gas">
+          <input type="checkbox" id="heat_gas" name="heat_gas" value="1" <%= "checked" if @listing.heat_gas %>>
+          Heat gas
+        </label>
+      </div>
+
+      <!-- Label and input for heat_radiator -->
+      <div class="checkbox">
+        <label for="heat_radiator">
+          <input type="checkbox" id="heat_radiator" name="heat_radiator" value="1" <%= "checked" if @listing.heat_radiator %>>
+          Heat radiator
+        </label>
+      </div>
+
+      <!-- Label and input for ac_window_units -->
+      <div class="checkbox">
+        <label for="ac_window_units">
+          <input type="checkbox" id="ac_window_units" name="ac_window_units" value="1" <%= "checked" if @listing.ac_window_units %>>
+          Ac window units
+        </label>
+      </div>
+
+      <!-- Label and input for ac_central -->
+      <div class="checkbox">
+        <label for="ac_central">
+          <input type="checkbox" id="ac_central" name="ac_central" value="1" <%= "checked" if @listing.ac_central %>>
+          Ac central
+        </label>
+      </div>
+
+      <!-- Label and input for list_date -->
+      <div class="form-group">
+        <label for="list_date" class="control-label">
+          List date
+        </label>
+
+        <input type="text" id="list_date" name="list_date" placeholder="List date" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for pin -->
+      <div class="form-group">
+        <label for="pin" class="control-label">
+          Pin
+        </label>
+
+        <input type="text" id="pin" name="pin" placeholder="Pin" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for recent_rehab -->
+      <div class="checkbox">
+        <label for="recent_rehab">
+          <input type="checkbox" id="recent_rehab" name="recent_rehab" value="1" <%= "checked" if @listing.recent_rehab %>>
+          Recent rehab
+        </label>
+      </div>
+
+      <!-- Label and input for vintage -->
+      <div class="checkbox">
+        <label for="vintage">
+          <input type="checkbox" id="vintage" name="vintage" value="1" <%= "checked" if @listing.vintage %>>
+          Vintage
+        </label>
+      </div>
+
+      <!-- Label and input for new_construction -->
+      <div class="checkbox">
+        <label for="new_construction">
+          <input type="checkbox" id="new_construction" name="new_construction" value="1" <%= "checked" if @listing.new_construction %>>
+          New construction
+        </label>
+      </div>
+
+      <!-- Label and input for price -->
+      <div class="form-group">
+        <label for="price" class="control-label">
+          Price
+        </label>
+
+        <input type="text" id="price" name="price" placeholder="Price" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for rental -->
+      <div class="checkbox">
+        <label for="rental">
+          <input type="checkbox" id="rental" name="rental" value="1" <%= "checked" if @listing.rental %>>
+          Rental
+        </label>
+      </div>
+
+      <!-- Label and input for state -->
+      <div class="form-group">
+        <label for="state" class="control-label">
+          State
+        </label>
+
+        <input type="text" id="state" name="state" placeholder="State" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for st_num -->
+      <div class="form-group">
+        <label for="st_num" class="control-label">
+          St num
+        </label>
+
+        <input type="text" id="st_num" name="st_num" placeholder="St num" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for street -->
+      <div class="form-group">
+        <label for="street" class="control-label">
+          Street
+        </label>
+
+        <input type="text" id="street" name="street" placeholder="Street" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for st_suffix -->
+      <div class="form-group">
+        <label for="st_suffix" class="control-label">
+          St suffix
+        </label>
+
+        <input type="text" id="st_suffix" name="st_suffix" placeholder="St suffix" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for cp -->
+      <div class="form-group">
+        <label for="cp" class="control-label">
+          Cp
+        </label>
+
+        <input type="text" id="cp" name="cp" placeholder="Cp" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for unit -->
+      <div class="form-group">
+        <label for="unit" class="control-label">
+          Unit
+        </label>
+
+        <input type="text" id="unit" name="unit" placeholder="Unit" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for zip_code -->
+      <div class="form-group">
+        <label for="zip_code" class="control-label">
+          Zip code
+        </label>
+
+        <input type="text" id="zip_code" name="zip_code" placeholder="Zip code" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for property_type -->
+      <div class="form-group">
+        <label for="property_type" class="control-label">
+          Property type
+        </label>
+
+        <input type="text" id="property_type" name="property_type" placeholder="Property type" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for laundry -->
+      <div class="form-group">
+        <label for="laundry" class="control-label">
+          Laundry
+        </label>
+
+        <input type="text" id="laundry" name="laundry" placeholder="Laundry" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for cats -->
+      <div class="checkbox">
+        <label for="cats">
+          <input type="checkbox" id="cats" name="cats" value="1" <%= "checked" if @listing.cats %>>
+          Cats
+        </label>
+      </div>
+
+      <!-- Label and input for dogs -->
+      <div class="checkbox">
+        <label for="dogs">
+          <input type="checkbox" id="dogs" name="dogs" value="1" <%= "checked" if @listing.dogs %>>
+          Dogs
+        </label>
+      </div>
+
+      <!-- Label and input for available_date -->
+      <div class="form-group">
+        <label for="available_date" class="control-label">
+          Available date
+        </label>
+
+        <input type="text" id="available_date" name="available_date" placeholder="Available date" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for image_urls -->
+      <div class="form-group">
+        <label for="image_urls" class="control-label">
+          Image urls
+        </label>
+
+        <textarea id="image_urls" name="image_urls" placeholder="Image urls" class="form-control" rows="3"></textarea>
+      </div>
+
+      <!-- Label and input for neighborhood_id -->
+      <input type="hidden" name="neighborhood_id" value="<%= @neighborhood.id %>">
+
+      <!-- Label and input for picture_count -->
+      <div class="form-group">
+        <label for="picture_count" class="control-label">
+          Picture count
+        </label>
+
+        <input type="text" id="picture_count" name="picture_count" placeholder="Picture count" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for mls_id -->
+      <div class="form-group">
+        <label for="mls_id" class="control-label">
+          Mls
+        </label>
+
+        <input type="text" id="mls_id" name="mls_id" placeholder="Mls" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for lo_mlsid -->
+      <div class="form-group">
+        <label for="lo_mlsid" class="control-label">
+          Lo mlsid
+        </label>
+
+        <input type="text" id="lo_mlsid" name="lo_mlsid" placeholder="Lo mlsid" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for la_first_name -->
+      <div class="form-group">
+        <label for="la_first_name" class="control-label">
+          La first name
+        </label>
+
+        <input type="text" id="la_first_name" name="la_first_name" placeholder="La first name" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for la_last_name -->
+      <div class="form-group">
+        <label for="la_last_name" class="control-label">
+          La last name
+        </label>
+
+        <input type="text" id="la_last_name" name="la_last_name" placeholder="La last name" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for total_baths -->
+      <div class="form-group">
+        <label for="total_baths" class="control-label">
+          Total baths
+        </label>
+
+        <input type="text" id="total_baths" name="total_baths" placeholder="Total baths" class="form-control" value="">
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Listing
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Neighborhood has many hood_points -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Hood Points
+      </li>
+
+      <% @neighborhood.hood_points.each do |hood_point| %>
+        <li class="list-group-item">
+          <a href="/hood_points/<%= hood_point.id %>">
+            <%= hood_point.neighborhood_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/hood_points/<%= hood_point.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/hood_points/<%= hood_point.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_hood_point/<%= hood_point.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_hood_point" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for neighborhood_id -->
+      <input type="hidden" name="neighborhood_id" value="<%= @neighborhood.id %>">
+
+      <!-- Label and input for lat -->
+      <div class="form-group">
+        <label for="lat" class="control-label">
+          Lat
+        </label>
+
+        <input type="text" id="lat" name="lat" placeholder="Lat" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for lng -->
+      <div class="form-group">
+        <label for="lng" class="control-label">
+          Lng
+        </label>
+
+        <input type="text" id="lng" name="lng" placeholder="Lng" class="form-control" value="">
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Hood Point
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Neighborhood has many searches -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Searches
+      </li>
+
+      <% @neighborhood.searches.each do |search| %>
+        <li class="list-group-item">
+          <a href="/searches/<%= search.id %>">
+            <%= search.user_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/searches/<%= search.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/searches/<%= search.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_search/<%= search.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

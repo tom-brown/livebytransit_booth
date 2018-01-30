@@ -1,0 +1,116 @@
+<div class="page-header">
+  <h3>Cta Line #<%= @cta_line.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Name</dt>
+      <dd><%= @cta_line.name %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/cta_lines" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/cta_lines/<%= @cta_line.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_cta_line/<%= @cta_line.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- A Cta line has many cta_assigns -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Cta Assigns
+      </li>
+
+      <% @cta_line.cta_assigns.each do |cta_assign| %>
+        <li class="list-group-item">
+          <a href="/cta_assigns/<%= cta_assign.id %>">
+            <%= cta_assign.cta_station_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/cta_assigns/<%= cta_assign.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/cta_assigns/<%= cta_assign.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_cta_assign/<%= cta_assign.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_cta_assign" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for cta_station_id -->
+      <div class="form-group">
+        <label for="cta_station_id" class="control-label">
+          Cta station
+        </label>
+
+        <%= select_tag(:cta_station_id, options_from_collection_for_select(CtaStation.all, :id, :name), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for cta_line_id -->
+      <div class="form-group">
+        <label for="cta_line_id" class="control-label">
+          Cta line
+        </label>
+
+        <%= select_tag(:cta_line_id, options_from_collection_for_select(CtaLine.all, :id, :name), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Cta Assign
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Cta line has many cta_stations -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Cta Stations
+      </li>
+
+      <% @cta_line.cta_stations.each do |cta_station| %>
+        <li class="list-group-item">
+          <a href="/cta_stations/<%= cta_station.id %>">
+            <%= cta_station.name %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/cta_stations/<%= cta_station.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/cta_stations/<%= cta_station.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_cta_station/<%= cta_station.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
