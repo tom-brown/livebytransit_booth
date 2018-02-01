@@ -1,0 +1,293 @@
+<div class="page-header">
+  <h1>
+    Searches
+    <a href="/searches/new" class="btn btn-lg btn-success">New Search</a>
+  </h1>
+</div><div class="row mb-1">
+  <div class="col-md-12">
+    <%= search_form_for @q, :class => collapse_search_form, :id => "searches_filters" do |f| %>
+      <p class="lead">Narrow results:</p>
+
+        <div class="form-group">
+    <%= f.label :new_mlsids_cont, "New mlsids contains" %>
+    <%= f.text_field :new_mlsids_cont, :class => "form-control", :placeholder => "New mlsids contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :current_mlsids_cont, "Current mlsids contains" %>
+    <%= f.text_field :current_mlsids_cont, :class => "form-control", :placeholder => "Current mlsids contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :old_mlsids_cont, "Old mlsids contains" %>
+    <%= f.text_field :old_mlsids_cont, :class => "form-control", :placeholder => "Old mlsids contains" %>
+  </div>
+
+<div class="form-group">
+  <%= f.label :min_price, "Min price" %>
+  <div class="row">
+    <div class='col-md-6 mb-1'>
+      <%= f.text_field :min_price_gteq, :class => "form-control", :placeholder => "Min price greater than or equal to" %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_field :min_price_lteq, :class => "form-control", :placeholder => "Min price less than or equal to" %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+    <%= f.label :name_cont, "Name contains" %>
+    <%= f.text_field :name_cont, :class => "form-control", :placeholder => "Name contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :laundry_cont, "Laundry contains" %>
+    <%= f.text_field :laundry_cont, :class => "form-control", :placeholder => "Laundry contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :parking_cont, "Parking contains" %>
+    <%= f.text_field :parking_cont, :class => "form-control", :placeholder => "Parking contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :metra_distance_cont, "Metra distance contains" %>
+    <%= f.text_field :metra_distance_cont, :class => "form-control", :placeholder => "Metra distance contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :cta_distance_cont, "Cta distance contains" %>
+    <%= f.text_field :cta_distance_cont, :class => "form-control", :placeholder => "Cta distance contains" %>
+  </div>
+
+<div class="form-group">
+    <%= f.label :dogs_eq, "Dogs" %>
+    <div>
+      <label class="radio-inline">
+        <%= f.radio_button :dogs_eq, "1", checked: ((params[:q] && params[:q][:dogs_eq]) == "1" ? "checked" : "") %> Yes
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :dogs_eq, "0", checked: ((params[:q] && params[:q][:dogs_eq]) == "0" ? "checked" : "")%> No
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :dogs_eq, ""%> Either
+      </label>
+    </div>
+  </div>
+
+<div class="form-group">
+    <%= f.label :cats_eq, "Cats" %>
+    <div>
+      <label class="radio-inline">
+        <%= f.radio_button :cats_eq, "1", checked: ((params[:q] && params[:q][:cats_eq]) == "1" ? "checked" : "") %> Yes
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :cats_eq, "0", checked: ((params[:q] && params[:q][:cats_eq]) == "0" ? "checked" : "")%> No
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :cats_eq, ""%> Either
+      </label>
+    </div>
+  </div>
+
+<div class="form-group">
+    <%= f.label :rental_eq, "Rental" %>
+    <div>
+      <label class="radio-inline">
+        <%= f.radio_button :rental_eq, "1", checked: ((params[:q] && params[:q][:rental_eq]) == "1" ? "checked" : "") %> Yes
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :rental_eq, "0", checked: ((params[:q] && params[:q][:rental_eq]) == "0" ? "checked" : "")%> No
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :rental_eq, ""%> Either
+      </label>
+    </div>
+  </div>
+
+<div class="form-group">
+  <%= f.label :max_price, "Max price" %>
+  <div class="row">
+    <div class='col-md-6 mb-1'>
+      <%= f.text_field :max_price_gteq, :class => "form-control", :placeholder => "Max price greater than or equal to" %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_field :max_price_lteq, :class => "form-control", :placeholder => "Max price less than or equal to" %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :baths, "Baths" %>
+  <div class="row">
+    <div class='col-md-6 mb-1'>
+      <%= f.text_field :baths_gteq, :class => "form-control", :placeholder => "Baths greater than or equal to" %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_field :baths_lteq, :class => "form-control", :placeholder => "Baths less than or equal to" %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :beds, "Beds" %>
+  <div class="row">
+    <div class='col-md-6 mb-1'>
+      <%= f.text_field :beds_gteq, :class => "form-control", :placeholder => "Beds greater than or equal to" %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_field :beds_lteq, :class => "form-control", :placeholder => "Beds less than or equal to" %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+    <%= f.label :property_type_cont, "Property type contains" %>
+    <%= f.text_field :property_type_cont, :class => "form-control", :placeholder => "Property type contains" %>
+  </div>
+
+<div class="form-group">
+          <%= f.label :created_at, "Created at" %>
+          <div class="row">
+            <div class='col-md-6 mb-1'>
+              <div class='input-group date' id='created_atgteqPicker'>
+                  <%= f.text_field :created_at_gteq, :class => "form-control", :placeholder => "Created at greater than or equal to" %>
+                  <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+              </div>
+            </div>
+
+            <div class='col-md-6'>
+              <div class='input-group date' id='created_atlteqPicker'>
+                  <%= f.text_field :created_at_lteq, :class => "form-control", :placeholder => "Created at less than or equal to" %>
+                  <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+              </div>
+            </div>
+          </div>
+      </div>
+      <script type="text/javascript">
+          $(function () {
+              $('#created_atgteqPicker').datetimepicker({
+                  format: 'YYYY-MM-DD hh:mm:SS'
+              });
+              $('#created_atlteqPicker').datetimepicker({
+                  useCurrent: false,
+                  format: 'YYYY-MM-DD hh:mm:SS'
+              });
+              $('#created_atgteqPicker').on("dp.change", function (e) {
+                  $('#created_atlteqPicker').data("DateTimePicker").minDate(e.date);
+              });
+              $('#created_atlteqPicker').on("dp.change", function (e) {
+                  $('#created_atgteqPicker').data("DateTimePicker").maxDate(e.date);
+              });
+          });
+      </script>
+
+        <div class="form-group">
+      <%= f.label :listings_address_cont, "Listing address contains" %>
+      <%= f.text_field :listings_address_cont, :class => "form-control", :placeholder => "Listing address contains" %>
+    </div>
+
+<div class="form-group">
+      <%= f.label :cta_stations_name_cont, "CtaStation name contains" %>
+      <%= f.text_field :cta_stations_name_cont, :class => "form-control", :placeholder => "CtaStation name contains" %>
+    </div>
+
+<div class="form-group">
+  <%= f.label :lat, "MetraStation Lat" %>
+  <div class="row">
+    <div class='col-md-6 mb-1'>
+      <%= f.text_field :metra_stations_lat_gteq, :class => "form-control", :placeholder => "MetraStation Lat greater than or equal to" %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_field :metra_stations_lat_lteq, :class => "form-control", :placeholder => "MetraStation Lat less than or equal to" %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+      <%= f.label :cities_name_cont, "City name contains" %>
+      <%= f.text_field :cities_name_cont, :class => "form-control", :placeholder => "City name contains" %>
+    </div>
+
+<div class="form-group">
+      <%= f.label :neighborhoods_name_cont, "Neighborhood name contains" %>
+      <%= f.text_field :neighborhoods_name_cont, :class => "form-control", :placeholder => "Neighborhood name contains" %>
+    </div>
+
+      <%= f.submit :class => "btn btn-primary btn-block mb-1" %>
+
+      <a href="/searches" class="btn btn-default btn-block mb-1">Clear filters</a>
+    <% end %>
+    <a class="btn btn-default btn-block mb-1" data-toggle="collapse" href="#searches_filters">
+      Show Filters
+    </a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>User</th>
+        <th>Property type</th>
+        <th>Beds</th>
+        <th>Baths</th>
+        <th>Max price</th>
+        <th>Rental</th>
+        <th>Cats</th>
+        <th>Dogs</th>
+        <th>Cta distance</th>
+        <th>Metra distance</th>
+        <th>Parking</th>
+        <th>Laundry</th>
+        <th>Name</th>
+        <th>Min price</th>
+        <th>Old mlsids</th>
+        <th>Current mlsids</th>
+        <th>New mlsids</th>
+        <th>Actions</th>
+      </tr>
+
+      <% @searches.each do |search| %>
+      <tr>
+        <td>
+          <% if search.user.present? %>
+            <a href="/users/<%= search.user.id %>">
+              <%= search.user.email %>
+            </a>
+          <% end %>
+        </td>
+        <td><%= search.property_type %></td>
+        <td><%= search.beds %></td>
+        <td><%= search.baths %></td>
+        <td><%= search.max_price %></td>
+        <td><%= search.rental %></td>
+        <td><%= search.cats %></td>
+        <td><%= search.dogs %></td>
+        <td><%= search.cta_distance %></td>
+        <td><%= search.metra_distance %></td>
+        <td><%= search.parking %></td>
+        <td><%= search.laundry %></td>
+        <td><%= search.name %></td>
+        <td><%= search.min_price %></td>
+        <td><%= search.old_mlsids %></td>
+        <td><%= search.current_mlsids %></td>
+        <td><%= search.new_mlsids %></td>
+        <td>
+          <a href="/searches/<%= search.id %>" class="btn btn-primary">Show</a>
+          
+          <% if current_user == search.user %>
+            <a href="/searches/<%= search.id %>/edit" class="btn btn-warning">Edit</a>
+            <a href="/delete_search/<%= search.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+    <%= paginate @searches, theme: 'twitter-bootstrap-4' %>
+  </div>
+</div>

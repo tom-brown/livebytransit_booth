@@ -1,0 +1,43 @@
+<div class="page-header">
+  <h1>
+    Listings searches
+    <a href="/listings_searches/new" class="btn btn-lg btn-success">New Listings search</a>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Listing</th>
+        <th>Search</th>
+        <th>Actions</th>
+      </tr>
+
+      <% @listings_searches.each do |listings_search| %>
+      <tr>
+        <td>
+          <% if listings_search.listing.present? %>
+            <a href="/listings/<%= listings_search.listing.id %>">
+              <%= listings_search.listing.address %>
+            </a>
+          <% end %>
+        </td>
+        <td>
+          <% if listings_search.search.present? %>
+            <a href="/searches/<%= listings_search.search.id %>">
+              <%= listings_search.search.user_id %>
+            </a>
+          <% end %>
+        </td>
+        <td>
+          <a href="/listings_searches/<%= listings_search.id %>" class="btn btn-primary">Show</a>
+          <a href="/listings_searches/<%= listings_search.id %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/delete_listings_search/<%= listings_search.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+    <%= paginate @listings_searches, theme: 'twitter-bootstrap-4' %>
+  </div>
+</div>

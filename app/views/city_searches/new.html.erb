@@ -1,0 +1,46 @@
+<!-- Validation failure messages -->
+<% if @city_search.errors.any? %>
+  <% @city_search.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Add City Search</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_city_search" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for search_id -->
+      <div class="form-group">
+        <label for="search_id" class="control-label">
+          Search
+        </label>
+
+        <%= select_tag(:search_id, options_from_collection_for_select(Search.all, :id, :user_id, @city_search.search_id), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for city_id -->
+      <div class="form-group">
+        <label for="city_id" class="control-label">
+          City
+        </label>
+
+        <%= select_tag(:city_id, options_from_collection_for_select(City.all, :id, :name, @city_search.city_id), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-success">
+        Create City Search
+      </button>
+      or
+      <a href="/city_searches">Cancel</a>
+    </form>
+  </div>
+</div>

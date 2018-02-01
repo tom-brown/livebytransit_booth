@@ -14,4 +14,3 @@
 /vendor/cache/*
 /vendor/bundle
 !/vendor/assets/
-secrets.yml

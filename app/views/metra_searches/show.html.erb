@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h3>Metra Search #<%= @metra_search.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Search</dt>
+      <dd>
+        <% if @metra_search.search.present? %>
+          <a href="/searches/<%= @metra_search.search_id %>">
+            <%= @metra_search.search.user_id %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Metra station</dt>
+      <dd>
+        <% if @metra_search.metra_station.present? %>
+          <a href="/metra_stations/<%= @metra_search.metra_station_id %>">
+            <%= @metra_search.metra_station.lat %>
+          </a>
+        <% end %>
+      </dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/metra_searches" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/metra_searches/<%= @metra_search.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_metra_search/<%= @metra_search.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>

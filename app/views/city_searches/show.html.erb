@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h3>City Search #<%= @city_search.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Search</dt>
+      <dd>
+        <% if @city_search.search.present? %>
+          <a href="/searches/<%= @city_search.search_id %>">
+            <%= @city_search.search.user_id %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>City</dt>
+      <dd>
+        <% if @city_search.city.present? %>
+          <a href="/cities/<%= @city_search.city_id %>">
+            <%= @city_search.city.name %>
+          </a>
+        <% end %>
+      </dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/city_searches" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/city_searches/<%= @city_search.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_city_search/<%= @city_search.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>

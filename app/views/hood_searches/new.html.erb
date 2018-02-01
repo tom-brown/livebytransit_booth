@@ -1,0 +1,46 @@
+<!-- Validation failure messages -->
+<% if @hood_search.errors.any? %>
+  <% @hood_search.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Add Hood Search</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_hood_search" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for neighborhood_id -->
+      <div class="form-group">
+        <label for="neighborhood_id" class="control-label">
+          Neighborhood
+        </label>
+
+        <%= select_tag(:neighborhood_id, options_from_collection_for_select(Neighborhood.all, :id, :name, @hood_search.neighborhood_id), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for search_id -->
+      <div class="form-group">
+        <label for="search_id" class="control-label">
+          Search
+        </label>
+
+        <%= select_tag(:search_id, options_from_collection_for_select(Search.all, :id, :user_id, @hood_search.search_id), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-success">
+        Create Hood Search
+      </button>
+      or
+      <a href="/hood_searches">Cancel</a>
+    </form>
+  </div>
+</div>

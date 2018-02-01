@@ -1,0 +1,46 @@
+<!-- Validation failure messages -->
+<% if @metra_assign.errors.any? %>
+  <% @metra_assign.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Add Metra Assign</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_metra_assign" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for metra_line_id -->
+      <div class="form-group">
+        <label for="metra_line_id" class="control-label">
+          Metra line
+        </label>
+
+        <%= select_tag(:metra_line_id, options_from_collection_for_select(MetraLine.all, :id, :created_at, @metra_assign.metra_line_id), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for metra_station_id -->
+      <div class="form-group">
+        <label for="metra_station_id" class="control-label">
+          Metra station
+        </label>
+
+        <%= select_tag(:metra_station_id, options_from_collection_for_select(MetraStation.all, :id, :lat, @metra_assign.metra_station_id), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-success">
+        Create Metra Assign
+      </button>
+      or
+      <a href="/metra_assigns">Cancel</a>
+    </form>
+  </div>
+</div>

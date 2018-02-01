@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h3>Listings Search #<%= @listings_search.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Listing</dt>
+      <dd>
+        <% if @listings_search.listing.present? %>
+          <a href="/listings/<%= @listings_search.listing_id %>">
+            <%= @listings_search.listing.address %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Search</dt>
+      <dd>
+        <% if @listings_search.search.present? %>
+          <a href="/searches/<%= @listings_search.search_id %>">
+            <%= @listings_search.search.user_id %>
+          </a>
+        <% end %>
+      </dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/listings_searches" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/listings_searches/<%= @listings_search.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_listings_search/<%= @listings_search.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>

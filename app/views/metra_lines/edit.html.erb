@@ -1,0 +1,28 @@
+<!-- Validation failure messages -->
+<% if @metra_line.errors.any? %>
+  <% @metra_line.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit Metra Line #<%= @metra_line.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_metra_line/<%= @metra_line.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <button class="btn btn-warning">
+        Update Metra Line
+      </button>
+      or
+      <a href="/metra_lines/<%= @metra_line.id %>">Cancel</a>
+    </form>
+  </div>
+</div>

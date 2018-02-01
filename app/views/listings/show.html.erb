@@ -14,18 +14,369 @@
       <dt>Lng</dt>
       <dd><%= @listing.lng %></dd>
 
+      <dt>User</dt>
+      <dd>
+        <% if @listing.user.present? %>
+          <a href="/users/<%= @listing.user_id %>">
+            <%= @listing.user.email %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Beds</dt>
+      <dd><%= @listing.beds %></dd>
+
+      <dt>Baths</dt>
+      <dd><%= @listing.baths %></dd>
+
+      <dt>Half baths</dt>
+      <dd><%= @listing.half_baths %></dd>
+
+      <dt>Description</dt>
+      <dd><%= @listing.description %></dd>
+
+      <dt>Garage spaces</dt>
+      <dd><%= @listing.garage_spaces %></dd>
+
+      <dt>Assigned parking</dt>
+      <dd><%= @listing.assigned_parking %></dd>
+
+      <dt>Active</dt>
+      <dd><%= @listing.active %></dd>
+
+      <dt>Age</dt>
+      <dd><%= @listing.age %></dd>
+
+      <dt>Size</dt>
+      <dd><%= @listing.size %></dd>
+
+      <dt>City</dt>
+      <dd>
+        <% if @listing.city.present? %>
+          <a href="/cities/<%= @listing.city_id %>">
+            <%= @listing.city.name %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Heat gas</dt>
+      <dd><%= @listing.heat_gas %></dd>
+
+      <dt>Heat radiator</dt>
+      <dd><%= @listing.heat_radiator %></dd>
+
+      <dt>Ac window units</dt>
+      <dd><%= @listing.ac_window_units %></dd>
+
+      <dt>Ac central</dt>
+      <dd><%= @listing.ac_central %></dd>
+
+      <dt>List date</dt>
+      <dd><%= @listing.list_date %></dd>
+
+      <dt>Pin</dt>
+      <dd><%= @listing.pin %></dd>
+
+      <dt>Recent rehab</dt>
+      <dd><%= @listing.recent_rehab %></dd>
+
+      <dt>Vintage</dt>
+      <dd><%= @listing.vintage %></dd>
+
+      <dt>New construction</dt>
+      <dd><%= @listing.new_construction %></dd>
+
+      <dt>Price</dt>
+      <dd><%= @listing.price %></dd>
+
+      <dt>Rental</dt>
+      <dd><%= @listing.rental %></dd>
+
+      <dt>State</dt>
+      <dd><%= @listing.state %></dd>
+
+      <dt>St num</dt>
+      <dd><%= @listing.st_num %></dd>
+
+      <dt>Street</dt>
+      <dd><%= @listing.street %></dd>
+
+      <dt>St suffix</dt>
+      <dd><%= @listing.st_suffix %></dd>
+
+      <dt>Cp</dt>
+      <dd><%= @listing.cp %></dd>
+
+      <dt>Unit</dt>
+      <dd><%= @listing.unit %></dd>
+
+      <dt>Zip code</dt>
+      <dd><%= @listing.zip_code %></dd>
+
+      <dt>Property type</dt>
+      <dd><%= @listing.property_type %></dd>
+
+      <dt>Laundry</dt>
+      <dd><%= @listing.laundry %></dd>
+
+      <dt>Cats</dt>
+      <dd><%= @listing.cats %></dd>
+
+      <dt>Dogs</dt>
+      <dd><%= @listing.dogs %></dd>
+
+      <dt>Available date</dt>
+      <dd><%= @listing.available_date %></dd>
+
+      <dt>Image urls</dt>
+      <dd><%= @listing.image_urls %></dd>
+
+      <dt>Neighborhood</dt>
+      <dd>
+        <% if @listing.neighborhood.present? %>
+          <a href="/neighborhoods/<%= @listing.neighborhood_id %>">
+            <%= @listing.neighborhood.name %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Picture count</dt>
+      <dd><%= @listing.picture_count %></dd>
+
+      <dt>Mls</dt>
+      <dd><%= @listing.mls_id %></dd>
+
+      <dt>Lo mlsid</dt>
+      <dd><%= @listing.lo_mlsid %></dd>
+
+      <dt>La first name</dt>
+      <dd><%= @listing.la_first_name %></dd>
+
+      <dt>La last name</dt>
+      <dd><%= @listing.la_last_name %></dd>
+
+      <dt>Total baths</dt>
+      <dd><%= @listing.total_baths %></dd>
+
     </dl>
 
     <div class="btn-group btn-group-justified">
       <a href="/listings" class="btn btn-primary">
         Back
       </a>
-      <a href="/listings/<%= @listing.id %>/edit" class="btn btn-warning">
-        Edit
-      </a>
-      <a href="/delete_listing/<%= @listing.id %>" class="btn btn-danger" rel="nofollow">
-        Delete
-      </a>
+      <% if current_user == @listing.user %>
+        <a href="/listings/<%= @listing.id %>/edit" class="btn btn-warning">
+          Edit
+        </a>
+        <a href="/delete_listing/<%= @listing.id %>" class="btn btn-danger" rel="nofollow">
+          Delete
+        </a>
+      <% end %>
     </div>
+  </div>
+</div>
+
+<!-- A Listing has many favorites -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Favorites
+      </li>
+
+      <% @listing.favorites.each do |favorite| %>
+        <li class="list-group-item">
+          <a href="/favorites/<%= favorite.id %>">
+            <%= favorite.user_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/favorites/<%= favorite.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/favorites/<%= favorite.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_favorite/<%= favorite.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_favorite" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+      <!-- Label and input for listing_id -->
+      <input type="hidden" name="listing_id" value="<%= @listing.id %>">
+
+      <button class="btn btn-block btn-success">
+        Create Favorite
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Listing has many showings -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Showings
+      </li>
+
+      <% @listing.showings.each do |showing| %>
+        <li class="list-group-item">
+          <a href="/showings/<%= showing.id %>">
+            <%= showing.user_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/showings/<%= showing.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/showings/<%= showing.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_showing/<%= showing.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_showing" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <div class="form-group">
+        <label for="user_id" class="control-label">
+          User
+        </label>
+
+        <%= select_tag(:user_id, options_from_collection_for_select(User.all, :id, :email), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for listing_id -->
+      <input type="hidden" name="listing_id" value="<%= @listing.id %>">
+
+      <!-- Label and input for message -->
+      <div class="form-group">
+        <label for="message" class="control-label">
+          Message
+        </label>
+
+        <textarea id="message" name="message" placeholder="Message" class="form-control" rows="3"></textarea>
+      </div>
+
+      <!-- Label and input for date -->
+      <div class="form-group">
+        <label for="date" class="control-label">
+          Date
+        </label>
+
+        <input type="text" id="date" name="date" placeholder="Date" class="form-control" value="">
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Showing
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Listing has many listings_searches -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Listings Searches
+      </li>
+
+      <% @listing.listings_searches.each do |listings_search| %>
+        <li class="list-group-item">
+          <a href="/listings_searches/<%= listings_search.id %>">
+            <%= listings_search.listing_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/listings_searches/<%= listings_search.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/listings_searches/<%= listings_search.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_listings_search/<%= listings_search.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_listings_search" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for listing_id -->
+      <input type="hidden" name="listing_id" value="<%= @listing.id %>">
+
+      <!-- Label and input for search_id -->
+      <div class="form-group">
+        <label for="search_id" class="control-label">
+          Search
+        </label>
+
+        <%= select_tag(:search_id, options_from_collection_for_select(Search.all, :id, :user_id), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Listings Search
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Listing has many searches -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Searches
+      </li>
+
+      <% @listing.searches.each do |search| %>
+        <li class="list-group-item">
+          <a href="/searches/<%= search.id %>">
+            <%= search.user_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/searches/<%= search.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/searches/<%= search.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_search/<%= search.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>

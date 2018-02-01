@@ -1,0 +1,210 @@
+<div class="page-header">
+  <h3>Metra Station #<%= @metra_station.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Lat</dt>
+      <dd><%= @metra_station.lat %></dd>
+
+      <dt>Lng</dt>
+      <dd><%= @metra_station.lng %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/metra_stations" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/metra_stations/<%= @metra_station.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_metra_station/<%= @metra_station.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- A Metra station has many metra_assigns -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Metra Assigns
+      </li>
+
+      <% @metra_station.metra_assigns.each do |metra_assign| %>
+        <li class="list-group-item">
+          <a href="/metra_assigns/<%= metra_assign.id %>">
+            <%= metra_assign.metra_line_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/metra_assigns/<%= metra_assign.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/metra_assigns/<%= metra_assign.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_metra_assign/<%= metra_assign.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_metra_assign" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for metra_line_id -->
+      <div class="form-group">
+        <label for="metra_line_id" class="control-label">
+          Metra line
+        </label>
+
+        <%= select_tag(:metra_line_id, options_from_collection_for_select(MetraLine.all, :id, :created_at), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for metra_station_id -->
+      <div class="form-group">
+        <label for="metra_station_id" class="control-label">
+          Metra station
+        </label>
+
+        <%= select_tag(:metra_station_id, options_from_collection_for_select(MetraStation.all, :id, :lat), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Metra Assign
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Metra station has many metra_searches -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Metra Searches
+      </li>
+
+      <% @metra_station.metra_searches.each do |metra_search| %>
+        <li class="list-group-item">
+          <a href="/metra_searches/<%= metra_search.id %>">
+            <%= metra_search.search_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/metra_searches/<%= metra_search.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/metra_searches/<%= metra_search.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_metra_search/<%= metra_search.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_metra_search" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for search_id -->
+      <div class="form-group">
+        <label for="search_id" class="control-label">
+          Search
+        </label>
+
+        <%= select_tag(:search_id, options_from_collection_for_select(Search.all, :id, :user_id), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for metra_station_id -->
+      <div class="form-group">
+        <label for="metra_station_id" class="control-label">
+          Metra station
+        </label>
+
+        <%= select_tag(:metra_station_id, options_from_collection_for_select(MetraStation.all, :id, :lat), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Metra Search
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Metra station has many searches -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Searches
+      </li>
+
+      <% @metra_station.searches.each do |search| %>
+        <li class="list-group-item">
+          <a href="/searches/<%= search.id %>">
+            <%= search.user_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/searches/<%= search.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/searches/<%= search.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_search/<%= search.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<!-- A Metra station has many metra_lines -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Metra Lines
+      </li>
+
+      <% @metra_station.metra_lines.each do |metra_line| %>
+        <li class="list-group-item">
+          <a href="/metra_lines/<%= metra_line.id %>">
+            <%= metra_line.created_at %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/metra_lines/<%= metra_line.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/metra_lines/<%= metra_line.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_metra_line/<%= metra_line.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

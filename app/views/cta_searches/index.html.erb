@@ -1,0 +1,43 @@
+<div class="page-header">
+  <h1>
+    Cta searches
+    <a href="/cta_searches/new" class="btn btn-lg btn-success">New Cta search</a>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Search</th>
+        <th>Cta station</th>
+        <th>Actions</th>
+      </tr>
+
+      <% @cta_searches.each do |cta_search| %>
+      <tr>
+        <td>
+          <% if cta_search.search.present? %>
+            <a href="/searches/<%= cta_search.search.id %>">
+              <%= cta_search.search.user_id %>
+            </a>
+          <% end %>
+        </td>
+        <td>
+          <% if cta_search.cta_station.present? %>
+            <a href="/cta_stations/<%= cta_search.cta_station.id %>">
+              <%= cta_search.cta_station.name %>
+            </a>
+          <% end %>
+        </td>
+        <td>
+          <a href="/cta_searches/<%= cta_search.id %>" class="btn btn-primary">Show</a>
+          <a href="/cta_searches/<%= cta_search.id %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/delete_cta_search/<%= cta_search.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+    <%= paginate @cta_searches, theme: 'twitter-bootstrap-4' %>
+  </div>
+</div>

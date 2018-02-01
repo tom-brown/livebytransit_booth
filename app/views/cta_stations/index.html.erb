@@ -1,0 +1,35 @@
+<div class="page-header">
+  <h1>
+    Cta stations
+    <a href="/cta_stations/new" class="btn btn-lg btn-success">New Cta station</a>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Name</th>
+        <th>Lat</th>
+        <th>Lng</th>
+        <th>Address</th>
+        <th>Actions</th>
+      </tr>
+
+      <% @cta_stations.each do |cta_station| %>
+      <tr>
+        <td><%= cta_station.name %></td>
+        <td><%= cta_station.lat %></td>
+        <td><%= cta_station.lng %></td>
+        <td><%= cta_station.address %></td>
+        <td>
+          <a href="/cta_stations/<%= cta_station.id %>" class="btn btn-primary">Show</a>
+          <a href="/cta_stations/<%= cta_station.id %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/delete_cta_station/<%= cta_station.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+    <%= paginate @cta_stations, theme: 'twitter-bootstrap-4' %>
+  </div>
+</div>
