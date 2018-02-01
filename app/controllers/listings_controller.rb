@@ -1,5 +1,5 @@
 class ListingsController < ApplicationController
-  before_action :current_user_must_be_listing_user, :only => [:edit, :update, :destroy]
+  # before_action :current_user_must_be_listing_user, :only => [:edit, :update, :destroy]
 
   def current_user_must_be_listing_user
     listing = Listing.find(params[:id])
